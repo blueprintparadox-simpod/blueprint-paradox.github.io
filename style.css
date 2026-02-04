@@ -213,3 +213,22 @@ body.modal-open {
 .modal:not(.hidden) .modal-content {
   transform: scale(1);
 }
+
+/* Slider dots */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+}
+
+.slider-dot.active {
+  background: var(--accent);
+}
