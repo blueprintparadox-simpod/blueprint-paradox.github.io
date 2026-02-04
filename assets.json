@@ -7,7 +7,10 @@
     "cover": "images/scroller/cover.png",
     "screenshots": [
       "images/scroller/screen1.png",
-      "images/scroller/screen2.png"
+      "images/scroller/screen2.png",
+      "images/scroller/screen3.png",
+      "images/scroller/screen4.png",
+      "images/scroller/screen5.png"
     ],
     "unityLink": "https://assetstore.unity.com/affiliate-link",
     "docsLink": "https://your-docs-link",
