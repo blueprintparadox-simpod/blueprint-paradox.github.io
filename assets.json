@@ -16,5 +16,23 @@
     "unityLink": "https://assetstore.unity.com/affiliate-link",
     "docsLink": "https://your-docs-link",
     "changelogLink": "https://your-changelog-link"
+  },
+  {
+    "id": "advanced-scroller",
+    "title": "Advanced ScrollerTEST",
+    "shortDescription": "Flexible scrolling system with animations.",
+     "category": "AI",
+    "longDescription": "Advanced Scroller is a powerful Unity scrolling solution designed for smooth UI and content animations. It supports inertia, snapping, and custom easing.",
+    "cover": "images/scroller/cover.png",
+    "screenshots": [
+      "images/scroller/screen2.png",
+      "images/scroller/screen1.png",
+      "images/scroller/screen3.png",
+      "images/scroller/screen4.png",
+      "images/scroller/screen5.png"
+    ],
+    "unityLink": "https://assetstore.unity.com/affiliate-link",
+    "docsLink": "https://your-docs-link",
+    "changelogLink": "https://your-changelog-link"
   }
 ]
