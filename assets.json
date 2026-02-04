@@ -3,7 +3,7 @@
     "id": "advanced-scroller",
     "title": "Advanced Scroller",
     "shortDescription": "Flexible scrolling system with animations.",
-     "category": "UI",
+    "category": "Editor",
     "longDescription": "Advanced Scroller for Unity with smooth animations and flexible layouts. Easy to use, highly customizable scroller for menus, shops, inventories, and mobile UI.",
     "cover": "images/scroller/cover.png",
     "screenshots": [
@@ -20,13 +20,13 @@
   {
     "id": "devmenu",
     "title": "DevMenu",
-    "shortDescription": "Test your Methods with [DevMenu] Attribute",
-     "category": "Tools",
-    "longDescription": "DevMenu is easy to use in-game debug console to help you test your game by simply adding [DevMenu] above your's methods.",
-    "cover": "images/scroller/cover.png",
+    "shortDescription": "Test your methods with the DevMenu attribute",
+    "category": "Editor",
+    "longDescription": "DevMenu is an easy-to-use in-game debug console that helps you test your game by simply adding the DevMenu attribute above your methods.",
+    "cover": "images/devmenu/cover.png",
     "screenshots": [
-      "images/devmenu/screen2.png",
       "images/devmenu/screen1.png",
+      "images/devmenu/screen2.png",
       "images/devmenu/screen3.png"
     ],
     "unityLink": "https://assetstore.unity.com/packages/tools/utilities/devmenu-debug-console-298912",
