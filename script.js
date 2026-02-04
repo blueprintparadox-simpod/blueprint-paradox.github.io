@@ -1,9 +1,13 @@
+/* =====================================================
+   GLOBAL STATE
+   ===================================================== */
+
 let allAssets = [];
 let currentSlide = 0;
 
-/* =========================
-   LOAD ASSETS & GRID
-   ========================= */
+/* =====================================================
+   LOAD ASSETS & CREATE GRID
+   ===================================================== */
 
 fetch('assets.json')
   .then(response => response.json())
@@ -14,6 +18,7 @@ fetch('assets.json')
     assets.forEach(asset => {
       const card = document.createElement('div');
       card.className = 'asset-card';
+      card.dataset.category = asset.category || 'Other';
 
       card.innerHTML = `
         <img class="asset-thumb" src="${asset.cover}" alt="${asset.title}">
@@ -29,9 +34,9 @@ fetch('assets.json')
     console.error('Failed to load assets.json', err);
   });
 
-/* =========================
-   MODAL / DETAIL
-   ========================= */
+/* =====================================================
+   MODAL / ASSET DETAIL
+   ===================================================== */
 
 function openAsset(assetId) {
   const asset = allAssets.find(a => a.id === assetId);
@@ -52,10 +57,18 @@ function openAsset(assetId) {
 
     <div class="slider">
       <button class="slider-btn left" id="slider-prev">‹</button>
+
       <div class="slider-track">
         ${images.map(img => `<img src="${img}" class="slide">`).join('')}
       </div>
+
       <button class="slider-btn right" id="slider-next">›</button>
+    </div>
+
+    <div class="slider-dots">
+      ${images.map((_, i) =>
+        `<div class="slider-dot ${i === 0 ? 'active' : ''}"></div>`
+      ).join('')}
     </div>
 
     <div class="modal-links">
@@ -81,8 +94,9 @@ function openAsset(assetId) {
 
   const modal = document.getElementById('asset-modal');
   modal.classList.remove('hidden');
+  document.body.classList.add('modal-open');
 
-  // Bind modal controls (NOW DOM EXISTS)
+  // Bind modal controls (DOM already exists)
   document.getElementById('modal-close').onclick = closeModal;
   document.querySelector('.modal-backdrop').onclick = closeModal;
 
@@ -94,17 +108,23 @@ function openAsset(assetId) {
 
 function closeModal() {
   document.getElementById('asset-modal').classList.add('hidden');
+  document.body.classList.remove('modal-open');
 }
 
-/* =========================
+/* =====================================================
    SLIDER LOGIC
-   ========================= */
+   ===================================================== */
 
 function updateSlider() {
   const track = document.querySelector('.slider-track');
   if (!track) return;
 
   track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+  const dots = document.querySelectorAll('.slider-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentSlide);
+  });
 }
 
 function prevSlide() {
@@ -123,9 +143,40 @@ function nextSlide() {
   updateSlider();
 }
 
-/* =========================
+/* =====================================================
+   ESC KEY – CLOSE MODAL
+   ===================================================== */
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+  }
+});
+
+/* =====================================================
+   ASSET CATEGORY FILTERS
+   ===================================================== */
+
+document.querySelectorAll('.asset-filters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+
+    document.querySelectorAll('.asset-filters button')
+      .forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.asset-card').forEach(card => {
+      const cat = card.dataset.category;
+      card.style.display =
+        filter === 'All' || cat === filter ? 'block' : 'none';
+    });
+  });
+});
+
+/* =====================================================
    AFFILIATE LINK BUILDER
-   ========================= */
+   (same logic as Unity Welcome Window)
+   ===================================================== */
 
 function buildAffiliateLink(url, clickedAssetName) {
   const CAM_REF = "1101l4h3BC";
