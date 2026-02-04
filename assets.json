@@ -3,12 +3,14 @@
     "id": "advanced-scroller",
     "title": "Advanced Scroller",
     "shortDescription": "Flexible scrolling system with animations.",
-    "cover": "images/scroller/cover.png"
-  },
-  {
-    "id": "devmenu",
-    "title": "DevMenu – Debug Console",
-    "shortDescription": "Runtime debug menu with buttons, shortcuts and categories.",
-    "cover": "images/devmenu/cover.png"
+    "longDescription": "Advanced Scroller is a powerful Unity scrolling solution designed for smooth UI and content animations. It supports inertia, snapping, and custom easing.",
+    "cover": "images/scroller/cover.png",
+    "screenshots": [
+      "images/scroller/screen1.png",
+      "images/scroller/screen2.png"
+    ],
+    "unityLink": "https://assetstore.unity.com/affiliate-link",
+    "docsLink": "https://your-docs-link",
+    "changelogLink": "https://your-changelog-link"
   }
 ]
