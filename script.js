@@ -58,3 +58,23 @@ document.querySelector('.modal-backdrop').onclick = closeModal;
 function closeModal() {
   document.getElementById('asset-modal').classList.add('hidden');
 }
+
+let currentSlide = 0;
+
+function updateSlider() {
+  const track = document.querySelector('.slider-track');
+  if (!track) return;
+  track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function prevSlide() {
+  const slides = document.querySelectorAll('.slide');
+  currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+  updateSlider();
+}
+
+function nextSlide() {
+  const slides = document.querySelectorAll('.slide');
+  currentSlide = (currentSlide + 1) % slides.length;
+  updateSlider();
+}
