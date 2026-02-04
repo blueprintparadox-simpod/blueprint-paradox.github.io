@@ -6,33 +6,46 @@ let allAssets = [];
 let currentSlide = 0;
 
 /* =====================================================
+   DOM READY
+   ===================================================== */
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAssets();
+  setupFilters();
+  setupEscKey();
+});
+
+/* =====================================================
    LOAD ASSETS & CREATE GRID
    ===================================================== */
 
-fetch('assets.json')
-  .then(response => response.json())
-  .then(assets => {
-    allAssets = assets;
-    const grid = document.getElementById('asset-grid');
+function loadAssets() {
+  fetch('assets.json')
+    .then(response => response.json())
+    .then(assets => {
+      allAssets = assets;
+      const grid = document.getElementById('asset-grid');
+      grid.innerHTML = '';
 
-    assets.forEach(asset => {
-      const card = document.createElement('div');
-      card.className = 'asset-card';
-      card.dataset.category = asset.category || 'Other';
+      assets.forEach(asset => {
+        const card = document.createElement('div');
+        card.className = 'asset-card';
+        card.dataset.category = asset.category || 'Other';
 
-      card.innerHTML = `
-        <img class="asset-thumb" src="${asset.cover}" alt="${asset.title}">
-        <h3>${asset.title}</h3>
-        <p>${asset.shortDescription}</p>
-      `;
+        card.innerHTML = `
+          <img class="asset-thumb" src="${asset.cover}" alt="${asset.title}">
+          <h3>${asset.title}</h3>
+          <p>${asset.shortDescription}</p>
+        `;
 
-      card.onclick = () => openAsset(asset.id);
-      grid.appendChild(card);
+        card.addEventListener('click', () => openAsset(asset.id));
+        grid.appendChild(card);
+      });
+    })
+    .catch(err => {
+      console.error('Failed to load assets.json', err);
     });
-  })
-  .catch(err => {
-    console.error('Failed to load assets.json', err);
-  });
+}
 
 /* =====================================================
    MODAL / ASSET DETAIL
@@ -96,10 +109,8 @@ function openAsset(assetId) {
   modal.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  // Bind modal controls (DOM already exists)
   document.getElementById('modal-close').onclick = closeModal;
   document.querySelector('.modal-backdrop').onclick = closeModal;
-
   document.getElementById('slider-prev').onclick = prevSlide;
   document.getElementById('slider-next').onclick = nextSlide;
 
@@ -144,38 +155,42 @@ function nextSlide() {
 }
 
 /* =====================================================
-   ESC KEY – CLOSE MODAL
+   FILTERS (FIXED)
    ===================================================== */
 
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
-});
+function setupFilters() {
+  const buttons = document.querySelectorAll('.asset-filters button');
 
-/* =====================================================
-   ASSET CATEGORY FILTERS
-   ===================================================== */
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
 
-document.querySelectorAll('.asset-filters button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const filter = btn.dataset.filter;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    document.querySelectorAll('.asset-filters button')
-      .forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    document.querySelectorAll('.asset-card').forEach(card => {
-      const cat = card.dataset.category;
-      card.style.display =
-        filter === 'All' || cat === filter ? 'block' : 'none';
+      document.querySelectorAll('.asset-card').forEach(card => {
+        const cat = card.dataset.category;
+        card.style.display =
+          filter === 'All' || cat === filter ? 'block' : 'none';
+      });
     });
   });
-});
+}
+
+/* =====================================================
+   ESC KEY
+   ===================================================== */
+
+function setupEscKey() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
 
 /* =====================================================
    AFFILIATE LINK BUILDER
-   (same logic as Unity Welcome Window)
    ===================================================== */
 
 function buildAffiliateLink(url, clickedAssetName) {
