@@ -163,15 +163,20 @@ function setupFilters() {
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
+      const filter = btn.dataset.filter.toLowerCase();
 
+      // UI state
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      // Filtering
       document.querySelectorAll('.asset-card').forEach(card => {
-        const cat = card.dataset.category;
-        card.style.display =
-          filter === 'All' || cat === filter ? 'block' : 'none';
+        const category = (card.dataset.category || '').toLowerCase();
+
+        const visible =
+          filter === 'all' || category === filter;
+
+        card.style.display = visible ? 'block' : 'none';
       });
     });
   });
