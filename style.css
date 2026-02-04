@@ -188,3 +188,28 @@ body {
 
 .slider-btn.left { left: 8px; }
 .slider-btn.right { right: 8px; }
+
+/* Modal animation + scroll lock */
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.modal:not(.hidden) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  transform: scale(0.96);
+  transition: transform 0.2s ease;
+}
+
+.modal:not(.hidden) .modal-content {
+  transform: scale(1);
+}
