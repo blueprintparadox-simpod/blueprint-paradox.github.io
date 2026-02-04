@@ -6,8 +6,8 @@
     "longDescription": "Advanced Scroller is a powerful Unity scrolling solution designed for smooth UI and content animations. It supports inertia, snapping, and custom easing.",
     "cover": "images/scroller/cover.png",
     "screenshots": [
-      "images/scroller/screen1.png",
       "images/scroller/screen2.png",
+      "images/scroller/screen1.png",
       "images/scroller/screen3.png",
       "images/scroller/screen4.png",
       "images/scroller/screen5.png"
