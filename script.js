@@ -24,19 +24,30 @@ fetch('assets.json')
 function openAsset(id) {
   const asset = allAssets.find(a => a.id === id);
   const body = document.getElementById('modal-body');
+  const images = asset.screenshots?.length
+  ? asset.screenshots
+  : [asset.cover];
 
-  body.innerHTML = `
-    <h2>${asset.title}</h2>
-    <p>${asset.longDescription}</p>
+body.innerHTML = `
+  <h2>${asset.title}</h2>
+  <p>${asset.longDescription}</p>
 
-    ${asset.screenshots?.map(img => `<img src="${img}">`).join('') || ''}
-
-    <div class="modal-links">
-      <a href="${asset.unityLink}" target="_blank">View on Unity Asset Store</a>
-      <a href="${asset.docsLink}" target="_blank">Documentation</a>
-      <a href="${asset.changelogLink}" target="_blank">Changelog</a>
+  <div class="slider">
+    <button class="slider-btn left" onclick="prevSlide()">‹</button>
+    <div class="slider-track">
+      ${images.map(img => `<img src="${img}" class="slide">`).join('')}
     </div>
-  `;
+    <button class="slider-btn right" onclick="nextSlide()">›</button>
+  </div>
+
+  <div class="modal-links">
+    <a href="${buildAffiliateLink(asset.unityLink, asset.id)}" target="_blank">
+      View on Unity Asset Store
+    </a>
+    <a href="${asset.docsLink}" target="_blank">Documentation</a>
+    <a href="${asset.changelogLink}" target="_blank">Changelog</a>
+  </div>
+`;
 
   document.getElementById('asset-modal').classList.remove('hidden');
 }
