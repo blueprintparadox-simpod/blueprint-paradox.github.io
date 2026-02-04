@@ -3,7 +3,7 @@
     "id": "test",
     "title": "Test Asset",
     "shortDescription": "If you see this, JSON works.",
-    "category": "Editor",
+    "category": "Tools",
     "cover": "images/scroller/cover.png"
   }
 ]
